@@ -1,5 +1,4 @@
 import { Sun, Moon } from "lucide-react";
-import { useContext, useState } from "react";
 import {
   Select,
   SelectContent,
