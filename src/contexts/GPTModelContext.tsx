@@ -31,7 +31,7 @@ export const GPTModelContextProvider = ({ children }: { children: ReactNode }) =
   const value = {
     model,
     changeModel: (selectedModel: Model) => {
-      localStorage.setItem(MODEL_STORAGE_KEY, model);
+      localStorage.setItem(MODEL_STORAGE_KEY, selectedModel);
       setModel(selectedModel);
     },
   };
