@@ -34,7 +34,10 @@ const Form = ({ sendMessage }: FormProps) => {
         disabled={message.trim().length === 0}
         size="icon"
         className="shrink-0"
-        onClick={() => sendMessage(message)}
+        onClick={() => {
+          sendMessage(message);
+          setMessage("");
+        }}
       >
         <SendHorizontal size={16} />
       </Button>
