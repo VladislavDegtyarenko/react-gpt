@@ -15,7 +15,6 @@ const Form = ({ sendMessage }: FormProps) => {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.ctrlKey && event.key === "Enter") {
-      console.log("Ctrl+Enter was pressed!");
       sendMessage(message);
       setMessage("");
     }
