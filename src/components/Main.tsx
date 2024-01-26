@@ -15,6 +15,7 @@ import Form from "./Form";
 
 import { ChatMessages, Role } from "@/types/types";
 import { useGPTModel } from "@/contexts/GPTModelContext";
+import ClearMessagesButton from "./ClearMessagesButton";
 
 const MESSAGES_STORAGE_KEY = "reactgpt.messages";
 
@@ -95,8 +96,11 @@ const Main = () => {
   return (
     <div className="pt-4 h-full">
       <Container className="h-full">
-        <div className="space-y-4 flex flex-col h-full">
+        <div className="space-y-2 flex flex-col h-full">
           <Chat chatMessages={chatMessages} isFetching={isFetching} />
+          {chatMessages.length > 0 ? (
+            <ClearMessagesButton onClick={() => setChatMessages([] as ChatMessages)} />
+          ) : null}
           <Form sendMessage={sendMessage} />
         </div>
       </Container>
