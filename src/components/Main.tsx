@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import OpenAI from "openai";
 
-console.log("import.meta.env.VITE_OPENAI_API_KEY: ", import.meta.env.VITE_OPENAI_API_KEY);
 const openai = new OpenAI({
   apiKey: import.meta.env.VITE_OPENAI_API_KEY,
   dangerouslyAllowBrowser: true,
@@ -14,7 +13,7 @@ import Form from "./Form";
 
 // TS
 
-import { ChatMessages, ChatCompletionObject, Role } from "@/types/types";
+import { ChatMessages, Role } from "@/types/types";
 import { useGPTModel } from "@/contexts/GPTModelContext";
 
 const MESSAGES_STORAGE_KEY = "reactgpt.messages";
@@ -45,10 +44,18 @@ const Main = () => {
     setIsFetching(true);
     addMessage("user", message, new Date().getTime());
 
-    const completion = (await openai.chat.completions.create({
-      messages: [{ role: "user", content: message }],
+    const messages = [
+      ...chatMessages.map(({ role, message }) => ({
+        role,
+        content: message,
+      })),
+      { role: "user", content: message },
+    ] as OpenAI.Chat.Completions.ChatCompletionMessageParam[];
+
+    const completion = await openai.chat.completions.create({
+      messages,
       model,
-    })) as ChatCompletionObject;
+    });
 
     const responseMessage = completion.choices[0].message;
     setIsFetching(false);
